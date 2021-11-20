@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Meta Robotics">
+  <link rel="apple-touch-icon" sizes="128x128" href="icon.png">
+  <link rel="stylesheet" href="font-awesome.css" type="text/css">
+  <link rel="stylesheet" href="theme.css" type="text/css">
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+
+    .wrapper-center {
+      background-image: url("http://roborio-6356-frc.local:1181/?action=stream");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+    }
+
+    .wrapper-left {
+
+      width: 14.4vw;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 7px 14px 7px 14px;
+    }
+
+    .wrapper-right {
+      width: 14.4vw;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 7px 14px 7px 14px;
+    }
+
+    .wrapper-top {
+      background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(20, 175, 33));
+      width: 100%;
+      height: 12vh;
+      position: absolute;
+      padding: 7px 14px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    .wrapper-top-left {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      height: 100%;
+      width: 30%;
+      align-items: center;
+      padding-left: 2rem;
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .wrapper-top-right {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      height: 100%;
+      width: 70%;
+      align-items: center;
+    }
+
+    .icon {
+      width: 3rem;
+      height: 3rem;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+    }
+
+
+    .button {
+      margin: -15px;
+      width: 80px;
+      height: 80px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .inner {
+      background-color: #fd493a;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      transform: scale(0.94);
+    }
+
+    .button.active .inner {
+      transform: scale(0.5);
+      border-radius: 12%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="wrapper-top">
+      <div class="wrapper-top-left">
+        <span>Tracking</span>
+      </div>
+      <div class="wrapper-top-right">
+        <span></span>
+      </div>
+
+    </div>
+    <div class="wrapper-center">
+      <div class="wrapper-left">
+        <div class="icon">
+
+          <img src="aim.png" width="50" height="50" id="toggleAim" onclick="toggleAim();">
+          <p id="toggleAimP">aim</p>
+        </div>
+        <div class="icon">
+          <img src="single.png" width="50" height="50" id="toggleSingle" onclick="toggleSingle()">
+          <p id="toggleSingleP">single</p>
+        </div>
+        <div class="icon">
+          <img src="double.png" width="50" height="50" id="toggleDouble" onclick="toggleDouble()">
+          <p id="toggleDoubleP">multi</p>
+        </div>
+
+      </div>
+      <div class="wrapper-right">
+        <div class="icon">
+          <div class="button">
+            <div class="inner"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    function toggle(img1, img2, id) {
+      var imgElement = document.getElementById(id);
+      var pElement = document.getElementById(id + "P");
+      var fileName = imgElement.src.replace(/^.*[\\\/]/, '');
+
+      if (fileName === img1) {
+        imgElement.src = img2;
+        pElement.style.color = "#4a90e2";
+      } else {
+        imgElement.src = img1;
+        pElement.style.color = "white";
+      }
+
+    }
+    function toggleAim() {
+      toggle("aim.png", "aim-blue.png", "toggleAim");
+    }
+
+    function toggleSingle() {
+      toggle("single.png", "single-blue.png", "toggleSingle");
+    }
+
+    function toggleDouble() {
+      toggle("double.png", "double-blue.png", "toggleDouble");
+    }
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+<script>
+  $(".button").click(function () {
+    $(this).toggleClass("active");
+  });
+</script>
+
+
+</html>
