@@ -61,8 +61,9 @@
       padding: 7px 14px 7px 14px;
     }
 
+    /*background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(20, 175, 33));*/
     .wrapper-top {
-      background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(20, 175, 33));
+      background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(61, 61, 61));
       width: 100%;
       height: 12vh;
       position: absolute;
@@ -131,9 +132,9 @@
 
 <body>
   <div class="wrapper">
-    <div class="wrapper-top">
+    <div id="status-bar" class="wrapper-top">
       <div class="wrapper-top-left">
-        <span>Tracking</span>
+        <span id="status-text">Manual</span>
       </div>
       <div class="wrapper-top-right">
         <span></span>
@@ -170,7 +171,35 @@
   </div>
 
   <script>
-    function toggle(img1, img2, id) {
+    const defaultMode = {
+      statusText: "Manual",
+      color: "rgb(61, 61, 61)"
+    }
+
+    const aimMode = {
+      statusText: "AI-Tracking",
+      color: "rgb(20, 175, 33)"
+    }
+
+    const singleMode = {
+      statusText: "Single Tracking",
+      color: "rgb(252, 154, 1)"
+    }
+
+    const multiMode = {
+      statusText: "Multi Tracking",
+      color: "rgb(0, 153, 255)"
+    }
+
+    function changeMode(mode) {
+      var statusText = document.getElementById("status-text");
+      var statusBar = document.getElementById("status-bar");
+      statusText.textContent = mode.statusText;
+      statusBar.style.backgroundImage = "linear-gradient(to left, rgba(255, 255, 255, 0), " + mode.color;
+
+    }
+
+    function toggle(img1, img2, id, mode) {
       var imgElement = document.getElementById(id);
       var pElement = document.getElementById(id + "P");
       var fileName = imgElement.src.replace(/^.*[\\\/]/, '');
@@ -178,22 +207,24 @@
       if (fileName === img1) {
         imgElement.src = img2;
         pElement.style.color = "#4a90e2";
+        changeMode(mode);
       } else {
         imgElement.src = img1;
         pElement.style.color = "white";
+        changeMode(defaultMode);
       }
 
     }
     function toggleAim() {
-      toggle("aim.png", "aim-blue.png", "toggleAim");
+      toggle("aim.png", "aim-blue.png", "toggleAim", aimMode);
     }
 
     function toggleSingle() {
-      toggle("single.png", "single-blue.png", "toggleSingle");
+      toggle("single.png", "single-blue.png", "toggleSingle", singleMode);
     }
 
     function toggleDouble() {
-      toggle("double.png", "double-blue.png", "toggleDouble");
+      toggle("double.png", "double-blue.png", "toggleDouble", multiMode);
     }
 
   </script>
